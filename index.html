@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Pritaa ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:black;
+overflow:hidden;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+/* 🌌 Stars */
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+from{opacity:0.2;}
+to{opacity:1;}
+}
+
+/* 💖 Floating Sky Hearts */
+.skyHeart{
+position:absolute;
+color:rgba(255,105,180,0.7);
+font-size:18px;
+animation:floatSky 6s linear infinite;
+}
+@keyframes floatSky{
+0%{transform:translateY(100vh);opacity:0;}
+10%{opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* 💃 Dancing Couple */
+.dancingCouple{
+position:fixed;
+bottom:0;
+right:20px;
+width:220px;
+opacity:0;
+z-index:1;
+animation:sway 4s ease-in-out infinite;
+transition:opacity 1.5s ease;
+}
+@keyframes sway{
+0%{transform:rotate(-2deg);}
+50%{transform:rotate(2deg);}
+100%{transform:rotate(-2deg);}
+}
+
+/* Card */
+.card{
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(20px);
+padding:25px;
+border-radius:25px;
+text-align:center;
+width:90%;
+max-width:380px;
+box-shadow:0 0 40px rgba(255,255,255,0.4);
+position:relative;
+z-index:2;
+}
+
+.photo{
+width:160px;
+height:160px;
+border-radius:50%;
+object-fit:cover;
+box-shadow:0 0 30px pink;
+margin:15px 0;
+}
+
+button{
+padding:10px 25px;
+border:none;
+border-radius:30px;
+margin:10px;
+font-size:16px;
+cursor:pointer;
+}
+
+.yes{background:#ff4b6e;color:white;}
+.no{background:white;color:black;}
+
+#lockScreen{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:10;
+}
+
+input{
+padding:10px;
+border-radius:10px;
+border:none;
+margin:10px;
+}
+
+/* 🔥 Shake Animation (ADDED ONLY THIS) */
+@keyframes shake{
+0%{transform:translateX(0);}
+25%{transform:translateX(-5px);}
+50%{transform:translateX(5px);}
+75%{transform:translateX(-5px);}
+100%{transform:translateX(0);}
+}
+.shake{
+animation:shake 0.4s;
+}
+
+/* Love Screen */
+#loveScreen{
+position:fixed;
+inset:0;
+background:black;
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:20;
+opacity:0;
+transition:opacity 2s ease;
+}
+
+.loveText{
+font-size:26px;
+text-align:center;
+color:#ff6ec4;
+text-shadow:0 0 25px #ff6ec4;
+animation:heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat{
+0%{transform:scale(1);}
+50%{transform:scale(1.05);}
+100%{transform:scale(1);}
+}
+
+.nameGlow{
+font-size:32px;
+color:#00f2fe;
+text-shadow:0 0 25px #00f2fe;
+margin-top:15px;
+}
+
+canvas{
+position:absolute;
+inset:0;
+z-index:-1;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+for(let i=0;i<120;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+star.style.animationDuration=(Math.random()*3+1)+"s";
+document.body.appendChild(star);
+}
+</script>
+
+<script>
+function createSkyHeart(){
+let heart=document.createElement("div");
+heart.className="skyHeart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*15+15)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createSkyHeart,800);
+</script>
+
+<img src="dance.png" class="dancingCouple" id="dance">
+
+<div id="lockScreen">
+<h2>Enter Special Password 💖</h2>
+<p>Hint: Jis nam se me bulata 😉</p>
+<input type="password" id="password">
+<button onclick="unlock()">Unlock</button>
+</div>
+
+<div class="card" id="mainCard" style="display:none;">
+<h2>To My Beautiful Pritaa ❤️</h2>
+<h3>Happy Valentine ✨</h3>
+<img class="photo" src="photo.jpg">
+<p id="countdown"></p>
+<button class="yes" onclick="showLove()">Yes ❤️</button>
+<button class="no" id="noBtn">No😏🤣</button>
+</div>
+
+<div id="loveScreen">
+<canvas id="fireworks"></canvas>
+<div class="loveText">
+Thank you for saying yes 😘❤️<br>
+I also love you so muchhh ❤️
+</div>
+<div class="nameGlow">Pritaa 💖</div>
+</div>
+
+<audio id="bgMusic" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* 🎵 Music */
+let musicStarted=false;
+function startMusic(){
+if(musicStarted) return;
+let music=document.getElementById("bgMusic");
+music.play().catch(()=>{});
+musicStarted=true;
+}
+document.addEventListener("touchstart",startMusic,{once:true});
+document.addEventListener("click",startMusic,{once:true});
+
+/* 🔐 PASSWORD (ONLY MODIFIED PART) */
+function unlock(){
+const input=document.getElementById("password");
+if(input.value==="prita"){
+document.getElementById("lockScreen").style.display="none";
+document.getElementById("mainCard").style.display="block";
+document.getElementById("dance").style.opacity="1";
+}else{
+showError();
+}
+}
+
+function showError(){
+const input=document.getElementById("password");
+let error=document.getElementById("errorMsg");
+if(!error){
+error=document.createElement("p");
+error.id="errorMsg";
+error.innerText="Wrong password 😏 Try again!";
+error.style.color="#ff4b6e";
+error.style.marginTop="5px";
+error.style.fontSize="14px";
+document.getElementById("lockScreen").appendChild(error);
+}
+input.value="";
+input.classList.add("shake");
+setTimeout(()=>input.classList.remove("shake"),400);
+}
+
+/* Countdown */
+const startDate=new Date(2023,6,28);
+function updateCountdown(){
+const now=new Date();
+let diff=now-startDate;
+let years=Math.floor(diff/(1000*60*60*24*365));
+let months=Math.floor((diff%(1000*60*60*24*365))/(1000*60*60*24*30));
+let days=Math.floor((diff%(1000*60*60*24*30))/(1000*60*60*24));
+let hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+let minutes=Math.floor((diff%(1000*60*60))/(1000*60));
+let seconds=Math.floor((diff%(1000*60))/1000);
+document.getElementById("countdown").innerHTML=
+`${years} years, ${months} months, ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds Of friendship ❤️`;
+}
+setInterval(updateCountdown,1000);
+updateCountdown();
+
+/* No button escape */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",move);
+noBtn.addEventListener("touchstart",move);
+function move(){
+noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*200+"px";
+noBtn.style.top=Math.random()*200+"px";
+}
+
+/* Love screen */
+function showLove(){
+let love=document.getElementById("loveScreen");
+love.style.display="flex";
+setTimeout(()=>love.style.opacity="1",100);
+launchFireworks();
+}
+
+/* Fireworks */
+function launchFireworks(){
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let particles=[];
+function create(){
+let x=Math.random()*canvas.width;
+let y=Math.random()*canvas.height/2;
+for(let i=0;i<100;i++){
+particles.push({x,y,angle:Math.random()*2*Math.PI,speed:Math.random()*5+2,life:100});
+}
+}
+function animate(){
+ctx.fillStyle="rgba(0,0,0,0.2)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+particles.forEach((p,i)=>{
+p.x+=Math.cos(p.angle)*p.speed;
+p.y+=Math.sin(p.angle)*p.speed;
+p.life--;
+ctx.fillStyle="hsl("+Math.random()*360+",100%,60%)";
+ctx.fillRect(p.x,p.y,3,3);
+if(p.life<=0)particles.splice(i,1);
+});
+requestAnimationFrame(animate);
+}
+setInterval(create,800);
+animate();
+}
+
+</script>
+
+</body>
+</html>
