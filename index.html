@@ -24,6 +24,7 @@ height:100vh;
     font-weight: 500;
     }
 
+    
 /* 🌌 Stars */
 .star{
 position:absolute;
@@ -112,7 +113,15 @@ justify-content:center;
 align-items:center;
 z-index:10;
 }
-
+    
+#unlockBtn {
+   max-width: 90%;
+   width: 100%;
+   white-space: normal;
+   text-align: center;
+   line-height: 1.4;
+}
+    
 input{
 padding:10px;
 border-radius:10px;
@@ -207,7 +216,7 @@ setInterval(createSkyHeart,800);
 <h2>Enter Special Password 💖</h2>
 <p>Hint: Jis nam se me bulata 😉</p>
 <input type="password" id="password">
-<button onclick="unlock()">Unlock</button>
+<button id="unlockBtn" onclick="unlock()">Click here to open my heart and explore what’s hidden inside 😌</button>
 </div>
 
 <div class="card" id="mainCard" style="display:none;">
@@ -352,5 +361,6 @@ animate();
 </body>
 
 </html>
+
 
 
