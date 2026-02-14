@@ -236,8 +236,13 @@ let music=document.getElementById("bgMusic");
 music.play().catch(()=>{});
 musicStarted=true;
 }
-document.addEventListener("touchstart",startMusic,{once:true});
-document.addEventListener("click",startMusic,{once:true});
+/* 🎵 Music FIXED for GitHub Pages Mobile */
+document.addEventListener("click", function startMusic() {
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.7;
+    music.play().catch(()=>{});
+    document.removeEventListener("click", startMusic);
+});
 
 /* 🔐 PASSWORD (ONLY MODIFIED PART) */
 function unlock(){
@@ -337,4 +342,5 @@ animate();
 </script>
 
 </body>
+
 </html>
